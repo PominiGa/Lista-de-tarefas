@@ -40,10 +40,28 @@ public class Main {
                     break;
 
                 case 3:
-                    System.out.print("Digite o ID da tarefa para marcar como concluída: ");
+
+                    System.out.println("\n=== Tarefas disponíveis ===");
+
+                    if (gerenciador.listarTarefas().isEmpty()) {
+                        System.out.println("Não há tarefas cadastradas.");
+                        break;
+                    }
+
+                    gerenciador.listarTarefas()
+                            .forEach(System.out::println);
+
+                    System.out.print("\nDigite o ID da tarefa para marcar como concluída: ");
                     int idConcluir = scanner.nextInt();
-                    gerenciador.marcarComoConcluida(idConcluir);
-                    System.out.println("Operação finalizada.");
+                    scanner.nextLine();
+
+                    if (gerenciador.buscarPorId(idConcluir).isPresent()) {
+                        gerenciador.marcarComoConcluida(idConcluir);
+                        System.out.println("Tarefa marcada como concluída!");
+                    } else {
+                        System.out.println("ID não encontrado.");
+                    }
+
                     break;
 
                 case 4:
